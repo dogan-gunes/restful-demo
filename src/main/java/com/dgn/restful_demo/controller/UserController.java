@@ -1,13 +1,11 @@
 package com.dgn.restful_demo.controller;
 
+import com.dgn.restful_demo.dto.AddUserRequest;
 import com.dgn.restful_demo.model.User;
 import com.dgn.restful_demo.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,9 +21,12 @@ public class UserController {
     public ResponseEntity<List<User >> getAllUsers(){
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
-
     @GetMapping("/getUserById/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id){
         return new ResponseEntity<>(userService.getUserById(id),HttpStatus.OK);
+    }
+    @PostMapping("/addUser")
+    public ResponseEntity<User> addUser(@RequestBody AddUserRequest addUserRequest){
+        return new ResponseEntity<>(userService.addUser(addUserRequest),HttpStatus.CREATED);
     }
 }
